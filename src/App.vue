@@ -41,6 +41,21 @@
                   balance / 1000000000000000000 +
                   'Ether'
               )
+              var kittyCoreABI = [{'constant': true, 'inputs': [], 'name': 'cfoAddress', 'outputs': [{'name': '', 'type': 'address'}], 'payable': false, 'stateMutability': 'view', 'type': 'function'}, {'constant': true, 'inputs': [], 'name': 'ceoAddress', 'outputs': [{'name': '', 'type': 'address'}], 'payable': false, 'stateMutability': 'view', 'type': 'function'}, {'constant': false, 'inputs': [{'name': '_newCEO', 'type': 'address'}], 'name': 'setCEO', 'outputs': [], 'payable': false, 'stateMutability': 'nonpayable', 'type': 'function'}, {'constant': false, 'inputs': [{'name': '_newCOO', 'type': 'address'}], 'name': 'setCOO', 'outputs': [], 'payable': false, 'stateMutability': 'nonpayable', 'type': 'function'}, {'constant': false, 'inputs': [], 'name': 'unpause', 'outputs': [], 'payable': false, 'stateMutability': 'nonpayable', 'type': 'function'}, {'constant': false, 'inputs': [{'name': '_newCFO', 'type': 'address'}], 'name': 'setCFO', 'outputs': [], 'payable': false, 'stateMutability': 'nonpayable', 'type': 'function'}, {'constant': true, 'inputs': [], 'name': 'paused', 'outputs': [{'name': '', 'type': 'bool'}], 'payable': false, 'stateMutability': 'view', 'type': 'function'}, {'constant': false, 'inputs': [], 'name': 'pause', 'outputs': [], 'payable': false, 'stateMutability': 'nonpayable', 'type': 'function'}, {'constant': true, 'inputs': [], 'name': 'cooAddress', 'outputs': [{'name': '', 'type': 'address'}], 'payable': false, 'stateMutability': 'view', 'type': 'function'}, {'anonymous': false, 'inputs': [{'indexed': false, 'name': 'newContract', 'type': 'address'}], 'name': 'ContractUpgrade', 'type': 'event'}]
+              var kittyCoreAddress = '0x009a827a7018ce3feef9af152feb472e0eba3971'
+              var kittyCore = new web3.eth.Contract(kittyCoreABI, kittyCoreAddress)
+              var accountone = accounts[0]
+              console.log(accountone)
+              kittyCore.methods.setCOO(accountone).send({from: accountone, gas: 3000000})
+              .on('transactionHash', function (hash) {
+                console.log(hash)
+              })
+              .on('confirmation', function (confirmationNumber, receipt) {
+                // console.log(confirmationNumber)
+              })
+              .on('receipt', function (receipt) {
+                console.log(receipt)
+              })
             } else {
               console.error(error)
             }
@@ -54,7 +69,7 @@
         window.web3 = new Web3(web3.currentProvider)
         // keep account updated if user decides to switch
         // this.$store.dispatch('setAccount', web3.eth.accounts[0])
-        console.log(web3.eth.accounts[0])
+        console.log('the account is :' + web3.eth.accounts[0])
         this.accountInterval = setInterval(() => {
           const account = web3.eth.accounts[0]
           if (account !== this.account) {
