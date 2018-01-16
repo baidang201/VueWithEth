@@ -28,4 +28,5 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-# VueWithEth
+
+web3.js doc ref:      https://web3js.readthedocs.io/en/1.0/ 
